@@ -10,9 +10,8 @@ fn main() {
         println!("usage : {:?} <username>", args[0]);
         return;
     }
-    let mut ips = bridge::discover().unwrap();
+    let mut ips = bridge::discover_upnp().unwrap();
     let ip = ips.pop().unwrap();
-    let ip = ip.into_ip();
     let bridge = bridge::Bridge::new(ip, &*args[1]);
 
     match bridge.get_all_lights() {

@@ -1,7 +1,13 @@
 // (c) 2016 Joost Yervante Damad <joost@damad.be>
+#![feature(proc_macro)]
 
 extern crate philips_hue_client;
 extern crate ssdp;
+extern crate serde;
+#[macro_use]
+extern crate serde_derive;
+extern crate serde_json;
+
 use std::env;
 use philips_hue_client::bridge::{Bridge, discover_upnp};
 
@@ -95,3 +101,4 @@ impl<'a, T: 'a + Debug> Debug for Show<'a, T>{
 }
 
 mod error;
+mod data;

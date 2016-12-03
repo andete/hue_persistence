@@ -8,3 +8,6 @@ license = "MIT/Apache-2.0"
 version = "0.4"
 features = ["ssdp","nightly"]
 default-features = false
+
+[dependencies]
+ssdp = "0.3"

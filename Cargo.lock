@@ -3,6 +3,7 @@ name = "hue_storage"
 version = "0.1.0"
 dependencies = [
  "philips_hue_client 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ssdp 0.3.2 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
 [[package]]

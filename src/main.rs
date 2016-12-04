@@ -7,11 +7,16 @@ extern crate serde;
 #[macro_use]
 extern crate serde_derive;
 extern crate serde_json;
+extern crate syslog;
+#[macro_use]
+extern crate log;
 
 use std::env;
 use std::collections::HashMap;
 use philipshue::bridge::{Bridge, discover_upnp};
 use philipshue::hue::LightCommand;
+
+use syslog::Facility;
 
 use error::Error;
 
@@ -41,15 +46,15 @@ fn get_bridge(username:&str) -> Result<Bridge,Error> {
 fn is_newly_reachable(state:&mut State, id:&String, reachable:bool, name:&String) -> bool {
     let newly = match state.reachable.get(id) {
         None => {
-            println!("new light: {}", id);
+            info!("new light: {}", id);
             false // we don't know about this light yet...
         },
         Some(&was_reachable) => {
             if was_reachable && !reachable {
-                println!("light went off: {}", name);
+                info!("light went off: {}", name);
             }
             if !was_reachable && reachable {
-                println!("light now on: {}", name);
+                info!("light now on: {}", name);
             }
             !was_reachable && reachable
         },
@@ -61,7 +66,7 @@ fn is_newly_reachable(state:&mut State, id:&String, reachable:bool, name:&String
 fn set_light(bridge:&Bridge, state:&State, id:&String) -> Result<(),Error> {
     match state.lights.get(id) {
         None => {
-            println!("error: can't set light");
+            warn!("error: can't set light");
             Ok(())
         },
         Some(light) => {
@@ -81,9 +86,9 @@ fn set_light(bridge:&Bridge, state:&State, id:&String) -> Result<(),Error> {
             let resps = bridge.set_light_state(light.id, &cmd)?;
             for resp in resps.into_iter() {
                 if let Some(success) = resp.success{
-                    println!("Success: {:?}", success)
+                    info!("Success: {:?}", success)
                 }else if let Some(err) = resp.error{
-                    println!("Error: {:?}", err);
+                    info!("Error: {:?}", err);
                 }
             }
             Ok(())
@@ -95,7 +100,7 @@ fn store_lights(state:&mut State) -> Result<(), Error> {
     let stored = serde_json::to_string(&state.lights)?;
     let store = match state.last_stored {
         None => {
-            println!("new to store: {}", stored);
+            info!("new to store: {}", stored);
             true
         },
         Some(ref old) => {
@@ -103,7 +108,7 @@ fn store_lights(state:&mut State) -> Result<(), Error> {
                 //println!("no new state");
                 false
             } else {
-                println!("store update: {}", stored);
+                info!("store update: {}", stored);
                 true
             }
         }
@@ -135,10 +140,16 @@ fn handle_lights(state:&mut State, bridge:&Bridge) -> Result<(),Error> {
 }
 
 fn main() {
+    let syslog = syslog::unix(Facility::LOG_USER).unwrap();
+    log::set_logger(|max_level| {
+        max_level.set(log::LogLevelFilter::Info);
+        syslog
+    }).unwrap();
+
     // TODO syslog logging
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
-        println!("usage : {:?} <username>", args[0]);
+        warn!("usage : {:?} <username>", args[0]);
         return;
     }
 
@@ -151,7 +162,7 @@ fn main() {
         let bridge = match get_bridge(&username) {
             Ok(bridge) => bridge,
             Err(e) => {
-                println!("Error finding bridge: {:?}", e);
+                error!("Error finding bridge: {:?}", e);
                 // try to find bridge again in 60 sec
                 std::thread::sleep(std::time::Duration::new(60,0));
                 continue;
@@ -161,7 +172,7 @@ fn main() {
             match handle_lights(&mut state, &bridge) {
                 Ok(_) => (),
                 Err(e) => {
-                    println!("error handling lights: {:?}", e);
+                    error!("error handling lights: {:?}", e);
                     // try to find bridge again in 60 sec
                     std::thread::sleep(std::time::Duration::new(60,0));
                     break;

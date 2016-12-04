@@ -1,0 +1,11 @@
+[Unit]
+Description=Hue Storage
+After=syslog.target network.target
+
+[Service]
+User=services
+ExecStart=/usr/local/sbin/hue_storage
+StandardOutput=null
+
+[Install]
+WantedBy=multi-user.target

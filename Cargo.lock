@@ -2,7 +2,7 @@
 name = "hue_storage"
 version = "0.1.0"
 dependencies = [
- "philips_hue_client 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)",
+ "philipshue 0.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde 0.8.19 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_derive 0.8.19 (registry+https://github.com/rust-lang/crates.io-index)",
  "serde_json 0.8.3 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -259,8 +259,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "philips_hue_client"
-version = "0.4.3"
+name = "philipshue"
+version = "0.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "hyper 0.9.13 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -555,7 +555,7 @@ dependencies = [
 "checksum openssl-sys 0.7.17 (registry+https://github.com/rust-lang/crates.io-index)" = "89c47ee94c352eea9ddaf8e364be7f978a3bb6d66d73176572484238dd5a5c3f"
 "checksum openssl-sys-extras 0.7.14 (registry+https://github.com/rust-lang/crates.io-index)" = "11c5e1dba7d3d03d80f045bf0d60111dc69213b67651e7c889527a3badabb9fa"
 "checksum openssl-verify 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "3ed86cce894f6b0ed4572e21eb34026f1dc8869cb9ee3869029131bc8c3feb2d"
-"checksum philips_hue_client 0.4.3 (registry+https://github.com/rust-lang/crates.io-index)" = "afb6a3b92367acf5b43dfc64d758e6015c1372e8d97bfe334d05c943e3c0f1cb"
+"checksum philipshue 0.0.3 (registry+https://github.com/rust-lang/crates.io-index)" = "7c468ebf1394435d2e659de847fb70369dd0ba173567bc372158352b7fcd8526"
 "checksum pkg-config 0.3.8 (registry+https://github.com/rust-lang/crates.io-index)" = "8cee804ecc7eaf201a4a207241472cc870e825206f6c031e3ee2a72fa425f2fa"
 "checksum pnacl-build-helper 1.4.10 (registry+https://github.com/rust-lang/crates.io-index)" = "61c9231d31aea845007443d62fcbb58bb6949ab9c18081ee1e09920e0cf1118b"
 "checksum quote 0.3.10 (registry+https://github.com/rust-lang/crates.io-index)" = "6732e32663c9c271bfc7c1823486b471f18c47a2dbf87c066897b7b51afc83be"

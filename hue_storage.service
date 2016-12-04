@@ -3,8 +3,7 @@ Description=Hue Storage
 After=syslog.target network.target
 
 [Service]
-User=services
-ExecStart=/usr/local/sbin/hue_storage
+ExecStart=/usr/local/sbin/hue_storage username
 StandardOutput=null
 
 [Install]

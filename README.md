@@ -1,5 +1,8 @@
 # hue_persistence
+
 Hue persistence for Philips Hue Lights 
+
+[![Build Status](https://travis-ci.org/andete/hue_persistence.svg?branch=master)](https://travis-ci.org/andete/hue_persistence)
 
 Run this program as a background service on your local network.
 It remembers the configuration of the lamps on the network.
@@ -8,3 +11,4 @@ This programs only checks the status of the lamps every 10 seconds.
 This means that it can take up to 10 seconds for a lamp to get configured.
 
 This program is not tested with multiple hubs and will probably not work in any other configuration the single hub.
+

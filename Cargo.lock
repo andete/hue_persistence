@@ -1,5 +1,5 @@
 [root]
-name = "hue_storage"
+name = "hue_persistence"
 version = "0.1.0"
 dependencies = [
  "log 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",

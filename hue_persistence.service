@@ -1,9 +1,9 @@
 [Unit]
-Description=Hue Storage
+Description=Hue Persistence
 After=syslog.target network.target
 
 [Service]
-ExecStart=/usr/local/sbin/hue_storage username
+ExecStart=/usr/local/sbin/hue_persistence username
 StandardOutput=null
 
 [Install]

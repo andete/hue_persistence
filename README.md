@@ -1,4 +1,4 @@
-# hue_storage
+# hue_persistence
 Hue persistence for Philips Hue Lights 
 
 Run this program as a background service on your local network.

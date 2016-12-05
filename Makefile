@@ -1,12 +1,12 @@
 all:
 	cargo build --release
 
-# assumes hue_storage.services is already copied in /lib/systemd/system/
+# assumes hue_persistence.services is already copied in /lib/systemd/system/
 
 install:
-	-systemctl stop hue_storage
-	cp ./target/release/hue_storage /usr/local/sbin
-	systemctl enable hue_storage
+	-systemctl stop hue_persistence
+	cp ./target/release/hue_persistence /usr/local/sbin
+	systemctl enable hue_persistence
 	systemctl deamon-reload
-	systenctl start hue_storage
-	systemctl status hue_storage
+	systenctl start hue_persistence
+	systemctl status hue_persistence

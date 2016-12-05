@@ -1,5 +1,8 @@
 // (c) 2016 Joost Yervante Damad <joost@damad.be>
+
 #![feature(proc_macro)]
+
+/// Hue persistence for Philips Hue Lights
 
 extern crate philipshue;
 extern crate ssdp;

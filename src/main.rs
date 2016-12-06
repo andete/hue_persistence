@@ -149,7 +149,6 @@ fn main() {
         syslog
     }).unwrap();
 
-    // TODO syslog logging
     let args: Vec<String> = env::args().collect();
     if args.len() < 2 {
         warn!("usage : {:?} <username>", args[0]);

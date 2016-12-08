@@ -1,30 +1,14 @@
 // (c) 2016 Joost Yervante Damad <joost@damad.be>
 
-use philipshue::errors::HueError;
-use ssdp::SSDPError;
-use std::io;
+error_chain! {
 
-#[derive(Debug)]
-pub enum Error {
-    HueError(HueError),
-    SSDPError(SSDPError),
-    IOError(io::Error),
-}
-
-impl From<SSDPError> for Error {
-    fn from(e:SSDPError) -> Error {
-        Error::SSDPError(e)
+    links {
+        SSDP(::ssdp::SSDPError, ::ssdp::SSDPErrorKind);
+        Hue(::philipshue::errors::HueError, ::philipshue::errors::HueErrorKind);
     }
-}
-
-impl From<HueError> for Error {
-    fn from(e:HueError) -> Error {
-        Error::HueError(e)
+    
+    foreign_links {
+        Io(::std::io::Error);
     }
-}
-
-impl From<io::Error> for Error {
-    fn from(e:io::Error) -> Error {
-        Error::IOError(e)
-    }
+    
 }

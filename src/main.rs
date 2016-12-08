@@ -1,15 +1,9 @@
 // (c) 2016 Joost Yervante Damad <joost@damad.be>
 
-#![feature(proc_macro)]
-
 /// Hue persistence for Philips Hue Lights
 
 extern crate philipshue;
 extern crate ssdp;
-extern crate serde;
-#[macro_use]
-extern crate serde_derive;
-extern crate serde_json;
 extern crate syslog;
 #[macro_use]
 extern crate log;
@@ -27,7 +21,6 @@ use error::Error;
 struct State {
     lights: HashMap<String, data::Light>,
     reachable: HashMap<String, bool>,
-    last_stored: Option<String>,
 }
 
 impl Default for State {
@@ -35,7 +28,6 @@ impl Default for State {
         State {
             lights:HashMap::new(),
             reachable:HashMap::new(),
-            last_stored:None,
         }
     }
 }
@@ -99,45 +91,17 @@ fn set_light(bridge:&Bridge, state:&State, id:&String) -> Result<(),Error> {
     }
 }
 
-fn store_lights(state:&mut State) -> Result<(), Error> {
-    let stored = serde_json::to_string(&state.lights)?;
-    let store = match state.last_stored {
-        None => {
-            info!("new to store: {}", stored);
-            true
-        },
-        Some(ref old) => {
-            if old.as_str() == stored.as_str() {
-                //println!("no new state");
-                false
-            } else {
-                info!("store update: {}", stored);
-                true
-            }
-        }
-    };
-    if store {
-        state.last_stored = Some(stored);
-    }
-    Ok(())
-}
-
 fn handle_lights(state:&mut State, bridge:&Bridge) -> Result<(),Error> {
     let lights = bridge.get_all_lights()?;
-    let mut store = true;
     for (id,light) in lights.into_iter() {
         let reachable = light.state.reachable;
         //println!("{} {}", id, reachable);
         let light = data::Light::make(light, id);
         if is_newly_reachable(state, &light.uniqueid, reachable, &light.name) {
             set_light(bridge, state, &light.uniqueid)?;
-            store = false;
         } else {
             state.lights.insert(light.uniqueid.clone(), light);
         }
-    }
-    if store { // only store when we didn't change a light!
-        store_lights(state)?
     }
     Ok(())
 }

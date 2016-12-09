@@ -24,5 +24,5 @@ error-chain = "0.7"
 # requires nightly rust to build due to philipshue/ssdp requiring it
 
 [replace]
-"ssdp:0.4.0" = { path = '../ssdp-rs/' }
-"philipshue:0.1.0" = { path = '../philipshue/' }
+"ssdp:0.4.0" = { git = "https://github.com/andete/ssdp-rs.git", branch = "error_chain_compat" }
+"philipshue:0.1.0" = { git = "https://github.com/andete/philipshue.git", branch = "error_chain_compat" }

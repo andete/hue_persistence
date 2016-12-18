@@ -7,6 +7,8 @@ extern crate ssdp;
 extern crate syslog;
 #[macro_use]
 extern crate log;
+#[macro_use]
+extern crate error_chain;
 
 use std::env;
 use std::collections::HashMap;
@@ -80,11 +82,7 @@ fn set_light(bridge:&Bridge, state:&State, id:&String) -> Result<(),Error> {
             };
             let resps = bridge.set_light_state(light.id, &cmd)?;
             for resp in resps.into_iter() {
-                if let Some(success) = resp.success{
-                    info!("Success: {:?}", success)
-                }else if let Some(err) = resp.error{
-                    info!("Error: {:?}", err);
-                }
+                info!("Response: {:?}", resp);
             }
             Ok(())
         }

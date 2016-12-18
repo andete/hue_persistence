@@ -4,7 +4,7 @@ version = "0.2.1"
 dependencies = [
  "error-chain 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "log 0.3.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "philipshue 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "philipshue 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "ssdp 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
  "syslog 3.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
@@ -231,8 +231,8 @@ dependencies = [
 
 [[package]]
 name = "philipshue"
-version = "0.1.0"
-source = "git+https://github.com/andete/philipshue.git?branch=no_ssl#f6e2d7522d724979decc20236e8944b0363f36dd"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "error-chain 0.7.1 (registry+https://github.com/rust-lang/crates.io-index)",
  "hyper 0.9.14 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -243,12 +243,6 @@ dependencies = [
  "serde_json 0.8.4 (registry+https://github.com/rust-lang/crates.io-index)",
  "ssdp 0.5.0 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
-
-[[package]]
-name = "philipshue"
-version = "0.1.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-replace = "philipshue 0.1.0 (git+https://github.com/andete/philipshue.git?branch=no_ssl)"
 
 [[package]]
 name = "quote"
@@ -518,8 +512,7 @@ dependencies = [
 "checksum nix 0.5.1 (registry+https://github.com/rust-lang/crates.io-index)" = "bfb3ddedaa14746434a02041940495bf11325c22f6d36125d3bdd56090d50a79"
 "checksum num-traits 0.1.36 (registry+https://github.com/rust-lang/crates.io-index)" = "a16a42856a256b39c6d3484f097f6713e14feacd9bfb02290917904fae46c81c"
 "checksum num_cpus 1.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "55aabf4e2d6271a2e4e4c0f2ea1f5b07cc589cc1a9e9213013b54a76678ca4f3"
-"checksum philipshue 0.1.0 (git+https://github.com/andete/philipshue.git?branch=no_ssl)" = "<none>"
-"checksum philipshue 0.1.0 (registry+https://github.com/rust-lang/crates.io-index)" = "bedf4dcf3cabe98cb888fb3b87bb91672182702b0617eb4187146a256d1bc447"
+"checksum philipshue 0.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "b14bc669c6ed1031987fe4e0b61f689af41975677c71397096ad2199ae74832f"
 "checksum quote 0.3.10 (registry+https://github.com/rust-lang/crates.io-index)" = "6732e32663c9c271bfc7c1823486b471f18c47a2dbf87c066897b7b51afc83be"
 "checksum regex 0.1.80 (registry+https://github.com/rust-lang/crates.io-index)" = "4fd4ace6a8cf7860714a2c2280d6c1f7e6a413486c13298bbc86fd3da019402f"
 "checksum regex-syntax 0.3.9 (registry+https://github.com/rust-lang/crates.io-index)" = "f9ec002c35e86791825ed294b50008eea9ddfc8def4420124fbc6b08db834957"

@@ -112,13 +112,13 @@ fn main() {
         return;
     }
 
-    let username = args[1].clone();
+    let username = &args[1];
 
     let mut state = State::default();
 
     // TODO: error handling
     loop {
-        let bridge = match get_bridge(&username) {
+        let bridge = match get_bridge(username) {
             Ok(bridge) => bridge,
             Err(e) => {
                 error!("Error finding bridge: {:?}", e);

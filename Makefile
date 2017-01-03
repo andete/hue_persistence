@@ -1,7 +1,7 @@
 all:
 	cargo build --release
 
-# assumes hue_persistence.services is already copied in /lib/systemd/system/
+# assumes hue_persistence.service is already copied in /lib/systemd/system/
 
 install:
 	-systemctl stop hue_persistence

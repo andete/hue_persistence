@@ -11,7 +11,7 @@ readme = "README.md"
 keywords = ["philips","hue","light","bulb","automation"]
 
 [dependencies.philipshue]
-version = "0.2.0"
+version = "0.2"
 features = ["ssdp","unstable"]
 default-features = false
 

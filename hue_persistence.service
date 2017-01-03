@@ -3,7 +3,7 @@ Description=Hue Persistence
 After=syslog.target network.target
 
 [Service]
-ExecStart=/usr/local/sbin/hue_persistence username
+ExecStart=/usr/local/sbin/hue_persistence --syslog username
 StandardOutput=null
 
 [Install]

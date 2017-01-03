@@ -9,6 +9,8 @@ extern crate syslog;
 extern crate log;
 #[macro_use]
 extern crate error_chain;
+extern crate argparse;
+extern crate env_logger;
 
 use std::env;
 use std::collections::HashMap;
@@ -18,6 +20,8 @@ use philipshue::hue::LightCommand;
 use syslog::Facility;
 
 use error::Error;
+
+use argparse::{ArgumentParser, StoreTrue, Store};
 
 #[derive(Debug)]
 struct State {
@@ -99,26 +103,34 @@ fn handle_lights(state: &mut State, bridge: &Bridge) -> Result<(), Error> {
 }
 
 fn main() {
-    let syslog = syslog::unix(Facility::LOG_USER).unwrap();
-    log::set_logger(|max_level| {
-            max_level.set(log::LogLevelFilter::Info);
-            syslog
-        })
-        .unwrap();
-
-    let args: Vec<String> = env::args().collect();
-    if args.len() < 2 {
-        warn!("usage : {:?} <username>", args[0]);
-        return;
+    let mut want_syslog = false;
+    let mut username = String::new();
+    {
+        let mut ap = ArgumentParser::new();
+        ap.set_description("Persistence for Philips Hue lights");
+        ap.refer(&mut want_syslog)
+            .add_option(&["-s", "--syslog"], StoreTrue,
+                        "deamonize the process");
+        ap.refer(&mut username)
+            .add_argument("username", Store,
+                          "hue username")
+            .required();
+        ap.parse_args_or_exit();
     }
-
-    let username = &args[1];
+    if want_syslog {
+        let syslog = syslog::unix(Facility::LOG_USER).unwrap();
+        log::set_logger(|max_level| {
+            max_level.set(log::LogLevelFilter::Info);
+            syslog}).unwrap();
+    } else {
+        env::set_var("RUST_LOG","debug");
+        env_logger::init().unwrap(); 
+    }
 
     let mut state = State::default();
 
-    // TODO: error handling
     loop {
-        let bridge = match get_bridge(username) {
+        let bridge = match get_bridge(&username) {
             Ok(bridge) => bridge,
             Err(e) => {
                 error!("Error finding bridge: {:?}", e);

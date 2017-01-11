@@ -96,6 +96,15 @@ fn handle_lights(state: &mut State, bridge: &Bridge) -> Result<(), Error> {
         if is_newly_reachable(state, &light.uniqueid, reachable, &light.name) {
             set_light(bridge, state, &light.uniqueid)?;
         } else {
+            // set or update state
+            match state.lights.get(&light.uniqueid) {
+                Some(old_light) => {
+                    if *old_light != light {
+                        info!("Updating light {}", light.name)
+                    }
+                },
+                None => (),
+            }
             state.lights.insert(light.uniqueid.clone(), light);
         }
     }
@@ -110,7 +119,7 @@ fn main() {
         ap.set_description("Persistence for Philips Hue lights");
         ap.refer(&mut want_syslog)
             .add_option(&["-s", "--syslog"], StoreTrue,
-                        "deamonize the process");
+                        "enable syslog logging");
         ap.refer(&mut username)
             .add_argument("username", Store,
                           "hue username")

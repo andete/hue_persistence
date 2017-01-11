@@ -5,7 +5,7 @@
 use philipshue::hue;
 
 /// Light in HS mode
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Hs {
     /// Hue of the light. Both 0 and 65535 are red, 25500 is green and 46920 is blue.
     pub hue: u16,
@@ -14,21 +14,21 @@ pub struct Hs {
 }
 
 /// Light in XY mode
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Xy {
     pub x: f32,
     pub y: f32,
 }
 
 /// Light in CT mode
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct Ct {
     /// The [mired](http://en.wikipedia.org/wiki/Mired) colour temperature of the light.
     pub ct: u16,
 }
 
 /// color state of the light
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum ColorState {
     Hs(Hs),
     Xy(Xy),
@@ -36,7 +36,7 @@ pub enum ColorState {
 }
 
 /// state of the light
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct LightState {
     /// Whether the light is on
     pub on: bool,
@@ -45,7 +45,7 @@ pub struct LightState {
     pub color: ColorState,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 /// Details about a specific light
 pub struct Light {
     /// short id

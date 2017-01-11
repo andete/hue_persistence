@@ -9,7 +9,7 @@ extern crate syslog;
 extern crate log;
 #[macro_use]
 extern crate error_chain;
-extern crate argparse;
+extern crate clap;
 extern crate env_logger;
 
 use std::env;
@@ -21,7 +21,7 @@ use syslog::Facility;
 
 use error::Error;
 
-use argparse::{ArgumentParser, StoreTrue, Store};
+use clap::{Arg, App};
 
 #[derive(Debug)]
 struct State {
@@ -115,21 +115,21 @@ fn handle_lights(state: &mut State, bridge: &Bridge) -> Result<(), Error> {
 }
 
 fn main() {
-    let mut want_syslog = false;
-    let mut username = String::new();
-    {
-        let mut ap = ArgumentParser::new();
-        ap.set_description("Persistence for Philips Hue lights");
-        ap.refer(&mut want_syslog)
-            .add_option(&["-s", "--syslog"], StoreTrue,
-                        "enable syslog logging");
-        ap.refer(&mut username)
-            .add_argument("username", Store,
-                          "hue username")
-            .required();
-        ap.parse_args_or_exit();
-    }
-    if want_syslog {
+    let matches = App::new("Hue Persistence")
+        .version(env!("CARGO_PKG_VERSION"))
+        .author("Joost Yervante Damad <joost@damad.be>")
+        .about("Persistence for Philips Hue Lights")
+        .arg(Arg::with_name("syslog")
+             .short("s")
+             .long("syslog")
+             .help("enables syslog logging"))
+        .arg(Arg::with_name("username")
+             .help("hue username")
+             .required(true)
+             .index(1))
+        .get_matches();
+    
+    if matches.is_present("syslog") {
         let syslog = syslog::unix(Facility::LOG_USER).unwrap();
         log::set_logger(|max_level| {
             max_level.set(log::LogLevelFilter::Info);
@@ -138,6 +138,8 @@ fn main() {
         env::set_var("RUST_LOG","debug");
         env_logger::init().unwrap(); 
     }
+
+    let username = matches.value_of("username").unwrap();
 
     let mut state = State::default();
 

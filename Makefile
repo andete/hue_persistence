@@ -7,6 +7,6 @@ install:
 	-systemctl stop hue_persistence
 	cp ./target/release/hue_persistence /usr/local/sbin
 	systemctl enable hue_persistence
-	systemctl deamon-reload
+	systemctl daemon-reload
 	systenctl start hue_persistence
 	systemctl status hue_persistence

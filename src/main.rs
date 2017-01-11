@@ -40,7 +40,10 @@ impl Default for State {
 
 fn get_bridge(username: &str) -> Result<Bridge, Error> {
     let mut ips = discover_upnp()?;
-    let ip = ips.pop().unwrap();
+    let ip = match ips.pop() {
+        Some(ip) => ip,
+        None => return Err("no IP found for bridge".into()),
+    };
     Ok(Bridge::new(ip, username))
 }
 

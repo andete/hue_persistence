@@ -1,4 +1,4 @@
-// (c) 2016 Joost Yervante Damad <joost@damad.be>
+// (c) 2016-2017 Joost Yervante Damad <joost@damad.be>
 
 /// Hue persistence for Philips Hue Lights
 

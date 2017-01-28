@@ -16,7 +16,7 @@ features = ["ssdp","unstable"]
 default-features = false
 
 [dependencies]
-ssdp = "0.5.0"
+ssdp = "0.5"
 syslog = "3.2"
 log = "0.3"
 error-chain = "0.7"

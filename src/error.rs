@@ -3,8 +3,8 @@
 error_chain! {
 
     links {
-        SSDP(::ssdp::SSDPError, ::ssdp::SSDPErrorKind);
         Hue(::philipshue::errors::HueError, ::philipshue::errors::HueErrorKind);
+        SSDP(::ssdp::SSDPError, ::ssdp::SSDPErrorKind);
     }
     
     foreign_links {

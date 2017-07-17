@@ -11,15 +11,17 @@ readme = "README.md"
 keywords = ["philips","hue","light","bulb","automation"]
 
 [dependencies.philipshue]
-version = "0.2"
+git = "https://github.com/andete/philipshue"
+branch = "update_ssdp_serde"
+# version = "0.3"
 features = ["ssdp","unstable"]
 default-features = false
 
 [dependencies]
-ssdp = "0.5"
+ssdp = "0.6"
 syslog = "3.2"
 log = "0.3"
-error-chain = "0.7"
+error-chain = "0.10"
 env_logger = "0.3"
 clap = "2.20"
 

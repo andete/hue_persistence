@@ -11,8 +11,9 @@ readme = "README.md"
 keywords = ["philips","hue","light","bulb","automation"]
 
 [dependencies.philipshue]
+# path = "../philipshue"
 git = "https://github.com/andete/philipshue"
-branch = "update_ssdp_serde"
+branch = "hyper_0.11"
 # version = "0.3"
 features = ["ssdp","unstable"]
 default-features = false
@@ -24,5 +25,7 @@ log = "0.3"
 error-chain = "0.10"
 env_logger = "0.3"
 clap = "2.20"
+futures = "0.1"
+tokio-timer = "0.1"
 
 # requires nightly rust to build due to philipshue/ssdp requiring it
